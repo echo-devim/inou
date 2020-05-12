@@ -120,7 +120,7 @@ class Inou:
 
     def isBINARY(self, cm):
         #Detect a custom server that uses unknown binary messages
-        data = b'\x14\x01\x7f\x41\x41\x42\x80\x45\x90\xab\x00\r\n\r\n' #Some random bytes (except the first that is the len)
+        data = b'\x0e\x01\x7f\x41\x41\x42\x80\x45\x90\xab\x00\r\n\r\n' #Some random bytes (except the first that is the len)
         return cm.connect() and (len(cm.getresponse(data, 1, True)) > 0)
     
     def detectService(self):
