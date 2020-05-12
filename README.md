@@ -1,5 +1,4 @@
 # Inou
-
 Inou (pronounced as "I know you") is a tool to discover the service behind a specific unknown port.
 It performs an active scan trying to communicate with the service using multiple protocols (even concurrently).
 Inou is easy to integrate in bigger frameworks.
@@ -17,7 +16,28 @@ The following are the supported protocols:
 *  SIP
 *  ZMQ
 
-Moreover it supports the detection of custom protocols based on JSON, XML or binary data.
+    Moreover it supports the detection of custom protocols based on JSON, XML or binary data.
+
+## Usage
+```
+$ python3 inou.py -h
+usage: inou.py [-h] [-u] [-s] [-p] [-d] ip_address port
+
+positional arguments:
+  ip_address      Target ip address where the service is installed
+  port            Target port address where the service is listening
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -u, --udp       Use UDP instead of TCP
+  -s, --ssl       Use SSL sockets (default: False)
+  -p, --parallel  Use multiple threads (default: False)
+  -d, --debug     Enable debug prints
+
+$ python3 inou.py 127.0.0.1 80 --ssl -p
+Result: HTTP/SSL 
+```
+
 
 ## Contributing
 
