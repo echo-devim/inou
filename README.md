@@ -34,7 +34,7 @@ optional arguments:
   -p, --parallel  Use multiple threads (default: False)
   -d, --debug     Enable debug prints
 
-$ python3 inou.py 127.0.0.1 80 --ssl -p
+$ python3 inou.py 127.0.0.1 4443 --ssl -p
 Result: HTTP/SSL 
 ```
 
