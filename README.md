@@ -16,7 +16,7 @@ The following are the supported protocols:
 *  SIP
 *  ZMQ
 
-    Moreover it supports the detection of custom protocols based on JSON, XML or binary data.
+Moreover it supports the detection of custom protocols based on JSON, XML or binary data.
 
 ## Usage
 ```
