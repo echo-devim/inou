@@ -128,7 +128,12 @@ class Inou:
     def isBINARY(self, cm):
         #Detect a custom server that uses unknown binary messages
         data = b'\x0e\x01\x7f\x41\x41\x42\x80\x45\x90\xab\x00\r\n\r\n' #Some random bytes (except the first that is the len)
-        return cm.connect() and (len(cm.getresponse(data, 1, True)) > 0)
+        result = cm.connect() and (len(cm.getresponse(data, 1, True)) > 0)
+        if (result == False):
+            #Try again sending the memory layout of struct { int; int; int; int}
+            data = b'\x00\x00\x00\x01\x00\x00\x00\x02\x00\xff\x05\x03\x00\x00\x00\x04'
+            result = cm.connect() and (len(cm.getresponse(data, 1, True)) > 0)
+        return result
     
     def detectService(self):
         result = ""
