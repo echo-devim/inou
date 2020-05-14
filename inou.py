@@ -8,7 +8,13 @@ import multiprocessing
 from concurrent.futures import ThreadPoolExecutor
 
 class ConnManager:
+    """ Connection Manager Class """
+
     def connect(self):
+        """
+        This method closes previously opened connections and makes a new connection
+        to the target service using the specified transport protocol (UDP/TCP/SSL)
+        """
         self.close() # clean up
         if (self.protocol == "TCP"):
             socket_type = socket.SOCK_STREAM
@@ -32,6 +38,14 @@ class ConnManager:
             return False
 
     def getresponse(self, data, length = 1, binary = False):
+        """
+        This method is used to check if the service has replied to the messages belonging to a specific protocol.
+        data : is a string or a bytearray that we send to the service
+        length : is the size of the response we need to perform our checks about its validity
+        binary : says if we need to interpret data as binary data (true) or as a string (false)
+        The method return always a byte array with the specified length or empty if the service didn't reply
+        If you need to interpret the response as a string use getresponse(...).decode()
+        """
         try:
             if binary == False:
                 data = data.encode()
