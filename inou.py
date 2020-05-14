@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python3
 
 import argparse
 import socket
@@ -82,6 +82,13 @@ class Inou:
     def isSMTP(self, cm):
         data = "HELO example\r\n\r\n"
         return cm.protocol == "TCP" and cm.connect() and (cm.getresponse(data).decode() == "2")
+
+    def isSNMP(self, cm):
+        # SNMP 'get-request' raw packet
+        data = (b"\x30\x29\x02\x01\x00\x04\x06\x70\x75\x62\x6c\x69\x63\xa0\x1c\x02"
+                b"\x04\x10\xbd\x19\x8c\x02\x01\x00\x02\x01\x00\x30\x0e\x30\x0c\x06"
+                b"\x08\x2b\x06\x01\x02\x01\x01\x05\x00\x05\x00")
+        return cm.protocol == "UDP" and cm.connect() and ("public" in cm.getresponse(data, 13, True).decode())
 
     def isZMQ(self, cm):
         data = b"\xff\x00\x00\x00\x00\x00\x00\x00\x01\x7f"
