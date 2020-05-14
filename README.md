@@ -7,6 +7,7 @@ Inou is easy to integrate in bigger frameworks.
 Inou can perform the requests over SSL, UDP and TCP.
 The following are the supported protocols:
 *  HTTP
+*  DNS
 *  SIP
 *  RTSP
 *  FTP

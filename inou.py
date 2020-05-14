@@ -68,6 +68,11 @@ class Inou:
         data = "GET /index.html HTTP/1.1\r\nHost: " + cm.ipaddr + "\r\n\r\n"
         return cm.protocol == "TCP" and cm.connect() and (cm.getresponse(data, 4).decode() == "HTTP")
 
+    def isDNS(self, cm):
+        # DNS Query A www.google.com
+        data = b"\x59\xf6\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00\x03\x77\x77\x77\x06\x67\x6f\x6f\x67\x6c\x65\x03\x63\x6f\x6d\x00\x00\x01\x00\x01"
+        return cm.connect() and (cm.getresponse(data, 4, True) == b"\x59\xf6\x81\x80")
+
     def isRTSP(self, cm):
         data = "OPTIONS rtsp://" + cm.ipaddr + ":" + str(cm.port) + "/stream?data_source_id=0 RTSP/1.0\r\nCSeq: 2\r\n\r\n"
         return cm.protocol == "TCP" and cm.connect() and (cm.getresponse(data, 4).decode() == b"RTSP")
