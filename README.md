@@ -11,6 +11,7 @@ The following are the supported protocols:
 *  SIP
 *  RTSP
 *  FTP
+*  SMB
 *  SMTP
 *  SNMP
 *  TELNET
