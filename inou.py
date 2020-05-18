@@ -181,7 +181,7 @@ class Inou:
         cm = ConnManager(self.ipaddr, self.port, self.protocol, self.ssl, self.debug)
         # Use reflection to run all the methods named isPROTOCOL
         for func in dir(self):
-            if func.startswith('isTELNET') and (func != "isBINARY"):
+            if func.startswith('is') and (func != "isBINARY"):
                 if self.parallel == True:
                     cm = ConnManager(self.ipaddr, self.port, self.protocol, self.ssl, self.debug)
                     futures += [(executor.submit(getattr(self, func), (cm)), func[2:])]
