@@ -129,10 +129,10 @@ class Inou:
         return cm.protocol == "TCP" and cm.connect() and cm.getresponse(data,2, True) == b"\xff\x00"
 
     def isTELNET(self, cm):
-        data = b"\xff\xfb\x01" # Will Echo request
+        data = b"\xff\xfb\x18\xff\xfb\x20\xff\xfb\x23\xff\xfb\x27"
         if cm.protocol == "TCP" and cm.connect():
             resp = cm.getresponse(data,2,True)
-            return len(resp) > 2 and (resp[0] == 0xff) and (resp[1] > 0xf0)
+            return len(resp) == 2 and (resp[0] == 0xff) and (resp[1] > 0xf0)
         return False
 
     def isSSH(self, cm):
@@ -181,7 +181,7 @@ class Inou:
         cm = ConnManager(self.ipaddr, self.port, self.protocol, self.ssl, self.debug)
         # Use reflection to run all the methods named isPROTOCOL
         for func in dir(self):
-            if func.startswith('is') and (func != "isBINARY"):
+            if func.startswith('isTELNET') and (func != "isBINARY"):
                 if self.parallel == True:
                     cm = ConnManager(self.ipaddr, self.port, self.protocol, self.ssl, self.debug)
                     futures += [(executor.submit(getattr(self, func), (cm)), func[2:])]
