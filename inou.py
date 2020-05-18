@@ -143,6 +143,11 @@ class Inou:
             return cm.protocol == "TCP" and (response == "SSH") or (len(response) > 0 and response[0] == "\x00")
         return False
 
+    def isRABBITMQ(self, cm):
+        data = (b"\x00\x30\x4e\x00\x00\x00\x01\x01\xdf\x7f\xbc\x5e\xc3\xcf\x9e\x00"
+                b"!rabbitmqcli-2538-rabbit@localhost")
+        return cm.protocol == "TCP" and cm.connect() and cm.getresponse(data, 5, True) == b"\x00\x03\x73\x6f\x6b"
+
     def isSIP(self, cm):
         data = ("INFO sip:alice@pc33.example.com SIP/2.0\r\nVia: SIP/2.0/UDP 192.0.2.2:5060;branch=z9hG4bKnabcdef\r\n"
                 "To: Bob <sip:bob@example.com>;tag=a6c85cf\r\nFrom: Alice <sip:alice@example.com>;tag=1928301774\r\n"

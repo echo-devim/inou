@@ -5,7 +5,7 @@ Inou is easy to integrate in bigger frameworks.
 
 ## Features
 Inou can perform the requests over SSL, UDP and TCP.
-The following are the supported protocols:
+The following are the supported protocols and applications:
 *  HTTP
 *  DNS
 *  SIP
@@ -18,6 +18,7 @@ The following are the supported protocols:
 *  SSH
 *  SIP
 *  ZMQ
+*  RABBITMQ
 
 Moreover it supports the detection of custom protocols based on JSON, XML or binary data.
 
