@@ -196,9 +196,12 @@ class Inou:
                         pass
         
         for (future, func) in futures:
-            if future.result() == True:
-                result = func
-                break
+            try:
+                if future.result() == True:
+                    result = func
+                    break
+            except:
+                pass
 
         # Make the last attempt with the most coarse test
         if result == "" and self.isBINARY(cm):
