@@ -124,6 +124,22 @@ class Inou:
                 b"\x08\x2b\x06\x01\x02\x01\x01\x05\x00\x05\x00")
         return cm.protocol == "UDP" and cm.connect() and ("public" in cm.getresponse(data, 13, True).decode())
 
+    def isGDB(self, cm):
+        data = "+$qSupported:multiprocess+;swbreak+;hwbreak+;qRelocInsn+;fork-events+;vfork-events+;exec-events+;vContSupported+;QThreadEvents+;no-resumed+;xmlRegisters=i386#6a"
+        if (cm.protocol != "TCP"):
+            return False
+        
+        if cm.connect():
+            hasreplied = cm.getresponse(data, 1, False).decode() == "+"
+            if (hasreplied):
+                #The following messages are needed in order to avoid to crash the remote gdbserver
+                data = "+$vMustReplyEmpty#3a"
+                cm.getresponse(data, 1, False)
+                data = "+$QStartNoAckMode#b0"
+                cm.getresponse(data, 1, False)
+                return True
+            return False
+
     def isZMQ(self, cm):
         data = b"\xff\x00\x00\x00\x00\x00\x00\x00\x01\x7f"
         return cm.protocol == "TCP" and cm.connect() and cm.getresponse(data,2, True) == b"\xff\x00"
