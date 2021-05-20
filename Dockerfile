@@ -1,6 +1,7 @@
-FROM ubuntu:18.04
-# USER root
+FROM python:3.7-alpine
 
-RUN apt update && apt -y install python3
-COPY inou.py /bin
-ENTRYPOINT ["python3", "/bin/inou.py"]
+# Copy python script under PATH
+COPY inou.py /usr/local/bin
+
+# Set entrypoint for container
+ENTRYPOINT ["python3", "/usr/local/bin/inou.py"]
